@@ -25,11 +25,7 @@ func (brick *Brick) Move() {
 	y := r.Int31() % (PLAY_HEIGHT - BRICK_SIZE_DEFAULT)
 
 	// reduce the size of the brick as the score increases.
-	switch Score {
-	case 4:
-		brick.size -= 1
-		break
-	case 8:
+	if Score == 4 || Score == 8 {
 		brick.size -= 1
 	}
 	s := brick.size

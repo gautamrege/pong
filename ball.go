@@ -72,8 +72,8 @@ func ManageBrickHit(playCh chan BallPosition) {
 			// Is ball{x,y} between the brick{x,y}?
 			if bx > x && bx < (x+b.size) && by > y && by < (y+b.size) {
 				Score += 1 // increment score
-				if Score == 4 || Score == 8 {
-					GameBall.IncSpeed()
+				if Score == 4 {
+					GameBall.IncSpeed() // speed up the game
 				}
 				b.Move()
 				break
