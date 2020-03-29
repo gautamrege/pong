@@ -19,6 +19,24 @@ func (brick *Brick) Tick(event tl.Event) {
 	return
 }
 
+func (brick *Brick) Move() {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	x := r.Int31() % (PLAY_WIDTH - BRICK_SIZE_DEFAULT)
+	y := r.Int31() % (PLAY_HEIGHT - BRICK_SIZE_DEFAULT)
+
+	// reduce the size of the brick as the score increases.
+	switch Score {
+	case 4:
+		brick.size -= 1
+		break
+	case 8:
+		brick.size -= 1
+	}
+	s := brick.size
+	brick.SetSize(s+s, s)
+	brick.SetPosition(int(x), int(y))
+}
+
 func NewBrick() Brick {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	x := r.Int31() % (PLAY_WIDTH - BRICK_SIZE_DEFAULT)

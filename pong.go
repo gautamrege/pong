@@ -9,6 +9,10 @@ const (
 	PLAY_HEIGHT = 40
 )
 
+var GameBall *Ball
+var Bricks = []Brick{}
+var Score int = 0
+
 func main() {
 	game := tl.NewGame()
 	level := tl.NewBaseLevel(tl.Cell{
@@ -18,18 +22,23 @@ func main() {
 	play_area := tl.NewRectangle(6, 6, PLAY_WIDTH, PLAY_HEIGHT, tl.ColorCyan)
 	level.AddEntity(play_area)
 
+	// Global score entity
+	score := NewScoreLabel()
+	level.AddEntity(&score)
+
 	// create the paddle
 	paddle := NewPaddle()
 	level.AddEntity(&paddle)
 
 	// Lets add some bricks in random locations.
-	for i := 0; i < 3; i++ {
+	for i := 0; i < 5; i++ {
 		b := NewBrick()
 		level.AddEntity(&b)
+		Bricks = append(Bricks, b)
 	}
 
-	ball := NewBall()
-	level.AddEntity(&ball)
+	GameBall = NewBall()
+	level.AddEntity(GameBall)
 
 	game.Screen().SetLevel(level)
 	game.Start()
