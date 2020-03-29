@@ -1,9 +1,38 @@
 package main
 
-import "fmt"
+import (
+	tl "github.com/JoelOtter/termloop"
+)
+
+const (
+	PLAY_WIDTH  = 160
+	PLAY_HEIGHT = 40
+)
 
 func main() {
-	fmt.Println("Ping Pong")
+	game := tl.NewGame()
+	level := tl.NewBaseLevel(tl.Cell{
+		Bg: tl.ColorBlue,
+	})
+
+	play_area := tl.NewRectangle(6, 6, PLAY_WIDTH, PLAY_HEIGHT, tl.ColorCyan)
+	level.AddEntity(play_area)
+
+	// create the paddle
+	paddle := NewPaddle()
+	level.AddEntity(&paddle)
+
+	// Lets add some bricks in random locations.
+	for i := 0; i < 3; i++ {
+		b := NewBrick()
+		level.AddEntity(&b)
+	}
+
+	ball := NewBall()
+	level.AddEntity(&ball)
+
+	game.Screen().SetLevel(level)
+	game.Start()
 }
 
 /* Core Logic of Pong */
